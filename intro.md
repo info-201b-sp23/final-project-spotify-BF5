@@ -4,11 +4,13 @@
 
 ### Authors
 
-Kayla Doan, kaydoan@uw.edu
+Kayla Doan
 
-Michael Schwamborn, mschwam@uw.edu
+Michael Schwamborn
 
-Julian Bermudez-Ortega, julianbortega13@gmail.com, julberm@uw.edu
+Julian Bermudez-Ortega
+
+Nathanael Hartanto
 
 ### Date
 Spring 2023
