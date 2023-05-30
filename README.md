@@ -1,7 +1,7 @@
-# Title of Your Final Project Here 
-## INFO 201 "Foundational Skills for Data Science" — Winter 2023
+# Spotify Track Popularity
+## INFO 201 "Foundational Skills for Data Science" — Spring 2023
 
-Authors: Your names here
+Authors: Michael Schwamborn
 
 **Link: Link to your Shiny App here**
 
