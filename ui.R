@@ -8,11 +8,11 @@ spotify_df <- read.csv("dataset.csv")
 my_theme <- bs_theme(bg = "white", 
                      fg = "black", 
                      primary = "brown")
-my_theme %>% bs_add_rules(sass::sass_file("style.css"))
+my_theme <- my_theme %>% bs_add_rules(sass::sass_file("style.scss"))
 
 summary_tab <- tabPanel("Summary and Conclusion")
 
-intro_tab <- tabPanel("Introduction", includeMarkdown("intro.md"))
+intro_tab <- tabPanel("Introduction", includeMarkdown("intro.md"), p("hettettet"))
 
 chart1 <- tabPanel("CHART1")
 
