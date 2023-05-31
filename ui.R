@@ -1,6 +1,6 @@
-library("dplyr")
-library("ggplot2")
-library("plotly")
+library(dplyr)
+library(ggplot2)
+library(plotly)
 library(bslib)
 
 spotify_df <- read.csv("dataset.csv")
@@ -19,7 +19,7 @@ chart1 <- tabPanel("CHART 1",
                      sidebarPanel(
                        selectInput(
                          inputId = "Attribute",
-                         label = "Choose Attributes to Compare",
+                         label = "Choose Attributes to Compare to Popularity",
                          choices = unique(c("popularity", "duration_ms", "tempo", "energy", "liveness")),
                          multiple = TRUE
                        )
@@ -33,13 +33,19 @@ chart1 <- tabPanel("CHART 1",
             
 
 chart2 <- tabPanel("CHART2",
-                   selectInput(inputId = "genre_select", label = "Select Genre:", choices = unique(spotify_df$track_genre)),
+                   selectInput(inputId = "genre_select", label = "Select Genres", choices = unique(spotify_df$track_genre)),
                    plotlyOutput(outputId = "chart_2")
                    )
 
 chart3 <- tabPanel("CHART3",
-                   checkboxInput(label = "Select Genres", choices = unique(spotify_df$track_genre), value = FALSE), 
-                   plotlyOutput(outputId = "chart_3"))
+                   sidebarLayout(
+                     sidebarPanel(
+                      checkboxGroupInput(inputId = "select_genre", label = "Select Genres", choices = unique(spotify_df$track_genre), selected = "alternative")),
+                     mainPanel(
+                      plotlyOutput(outputId = "chart_3"),
+                      p("This shows the average popularity of your selected genres"))
+                   )
+                   )
 
 
 

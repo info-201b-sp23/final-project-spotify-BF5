@@ -2,13 +2,22 @@ library(dplyr)
 library(plotly)
 library(ggplot2)
 library(shiny)
+library(GGally)
+
+
 
 spotify_df <- read.csv("dataset.csv")
 
 
 my_server <- function(input, output) {
   
-  output$chart_1 <- renderPlotly({# Simplify to and organize data
+  output$chart_1 <- renderPlotly({
+    
+    validate(
+      need(input$Attribute, "Please select at least 2 attribute")
+    )
+    
+    # Simplify to and organize data
     spotify_df <- spotify_df %>%
       group_by(track_name, artists) %>%
       arrange(desc(popularity)) %>%
@@ -24,23 +33,22 @@ my_server <- function(input, output) {
     # Find the averages of all the numeric values in the df
     averages <- top_songs %>%
       summarize(across(where(is.numeric), mean, na.rm = TRUE))
-        
-    popularity_colors <- colorRampPalette(c("blue", "red"))(nrow(top_songs))
+  
     
     # Create the scatter plot matrix with colored points
     attributes <- input$Attribute
     
-    plot <- pairs(top_songs[attributes], 
-                  col = popularity_colors, 
-                  main = "What the Top 1% of Popular Songs Have in Common")
-    legend("topright", 
-           legend = c("Least Popular", "Most Popular"), 
-           col = c("blue", "red"), 
-           pch = 1, 
-           title = "Popularity")
+    if (length(attributes) > 1) {
+      scatterplot_matrix <- ggpairs(top_songs, columns = attributes, 
+                                    lower = list(continuous = wrap("points", alpha = 0.7)))
+    } else {
+      scatterplot_matrix <- NULL
+    }
     
-    # Convert base R plot to plotly
-    ggplotly(plot)
+    # Convert GGally plot object to plotly
+    if (!is.null(scatterplot_matrix)) {
+      ggplotly(scatterplot_matrix)
+    }
     
   })
   
@@ -67,13 +75,16 @@ my_server <- function(input, output) {
     avg_genre_popularity <- spotify_df %>%
       group_by(track_genre) %>%
       select(artists, track_name, track_genre, popularity) %>%
-      filter(popularity > 30) %>%
+      filter(popularity > 1) %>%
+      filter(track_genre == input$select_genre) %>%
       summarise(avg_popularity = mean(popularity)) %>%
       arrange(desc(avg_popularity))
     
     plot <- ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
       geom_col() +
-      labs(title = "Average Popularity of Genres", x = "Genre", y = "Popularity", fill = "Genre")
-    plotly::ggplotly(plot)
+      labs(title = "Average Popularity of Genres", x = " ", y = "Popularity", fill = "Genre")
+    
+    ggplotly(plot)
   })
+  
 }
