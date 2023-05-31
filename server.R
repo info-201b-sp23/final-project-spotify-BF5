@@ -1,7 +1,7 @@
-library("dplyr")
-library("ggplot2")
-library("plotly")
-library("scales")
+library(dplyr)
+library(plotly)
+library(ggplot2)
+library(shiny)
 
 spotify_df <- read.csv("dataset.csv")
 
@@ -28,7 +28,9 @@ my_server <- function(input, output) {
     popularity_colors <- colorRampPalette(c("blue", "red"))(nrow(top_songs))
     
     # Create the scatter plot matrix with colored points
-    plot <- pairs(top_songs[c("popularity", "duration_ms", "tempo", "energy", "liveness")], 
+    attributes <- input$Attribute
+    
+    plot <- pairs(top_songs[attributes], 
                   col = popularity_colors, 
                   main = "What the Top 1% of Popular Songs Have in Common")
     legend("topright", 
@@ -69,7 +71,7 @@ my_server <- function(input, output) {
       summarise(avg_popularity = mean(popularity)) %>%
       arrange(desc(avg_popularity))
     
-    ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
+    plot <- ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
       geom_col() +
       labs(title = "Average Popularity of Genres", x = "Genre", y = "Popularity", fill = "Genre")
     plotly::ggplotly(plot)
