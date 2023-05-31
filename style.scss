@@ -1,4 +1,26 @@
 p{
-  color:Red;
-  
+  color: White;
+}
+img{
+  width:60%;
+}
+body {
+  background-color: black;
+}
+h1{
+  color: lightgreen;
+}
+h2, h3, li {
+  color: white;
+}
+.nav-link{
+  color: darkgreen;
+  --bs-nav-link-hover-color: lightgreen;
+}
+.navbar-brand{
+  color: lightgreen;
+  --bs-navbar-brand-hover-color: lightgreen;
+}
+.nav-link.active{
+  color: lightgreen;
 }
