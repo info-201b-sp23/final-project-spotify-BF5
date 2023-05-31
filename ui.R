@@ -2,7 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(bslib)
-install.packages("markdown")
+library("markdown")
 spotify_df <- read.csv("dataset.csv")
 
 my_theme <- bs_theme(bg = "black", 
@@ -24,7 +24,7 @@ chart2 <- tabPanel("CHART2",
 chart3 <- tabPanel("CHART3",
                    sidebarLayout(
                      sidebarPanel(
-                      checkboxGroupInput(inputId = "select_genre", label = "Select Genres", choices = unique(spotify_df$track_genre), selected = "alternative")),
+                      selectInput(inputId = "select_genre", label = "Select Genres", choices = unique(spotify_df$track_genre), selected = "alternative", multiple = TRUE)),
                      mainPanel(
                       plotlyOutput(outputId = "chart_3"),
                       p("This shows the average popularity of your selected genres"))
