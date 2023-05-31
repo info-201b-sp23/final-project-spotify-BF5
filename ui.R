@@ -43,7 +43,7 @@ chart3 <- tabPanel("CHART3",
                       checkboxGroupInput(inputId = "select_genre", label = "Select Genres", choices = unique(spotify_df$track_genre), selected = "alternative")),
                      mainPanel(
                       plotlyOutput(outputId = "chart_3"),
-                      p("This shows the average popularity of your selected genres"))
+                      p("This shows the average popularity of your selected genres. With this graph we can see with genres are considered the most popular based on the average popularity of the songs within the genre. Showing how popular each genre is on Spotify."))
                    )
                    )
 
