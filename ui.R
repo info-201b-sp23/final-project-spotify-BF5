@@ -21,7 +21,9 @@ chart2 <- tabPanel("CHART2",
                    plotlyOutput(outputId = "chart_2")
                    )
 
-chart3 <- tabPanel("CHART3")
+chart3 <- tabPanel("CHART3",
+                   checkboxInput(label = "Select Genres", choices = unique(spotify_df$track_genre), value = FALSE), 
+                   plotlyOutput(outputId = "chart_3"))
 
 
 

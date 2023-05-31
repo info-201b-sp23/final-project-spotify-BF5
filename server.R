@@ -23,5 +23,19 @@ my_server <- function(input, output) {
     
     # Convert ggplot object to plotly
     plotly::ggplotly(plot)
+  
+  })
+  output$chart_3 <- renderPlotly({
+    avg_genre_popularity <- spotify_df %>%
+      group_by(track_genre) %>%
+      select(artists, track_name, track_genre, popularity) %>%
+      filter(popularity > 30) %>%
+      summarise(avg_popularity = mean(popularity)) %>%
+      arrange(desc(avg_popularity))
+    
+    ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
+      geom_col() +
+      labs(title = "Average Popularity of Genres", x = "Genre", y = "Popularity", fill = "Genre")
+    plotly::ggplotly(plot)
   })
 }
