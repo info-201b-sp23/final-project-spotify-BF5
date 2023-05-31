@@ -7,6 +7,42 @@ spotify_df <- read.csv("dataset.csv")
 
 
 my_server <- function(input, output) {
+  
+  output$chart_1 <- renderPlotly({# Simplify to and organize data
+    spotify_df <- spotify_df %>%
+      group_by(track_name, artists) %>%
+      arrange(desc(popularity)) %>%
+      ungroup()
+    
+    spotify_df <- spotify_df %>%
+      distinct(track_name, artists, .keep_all = TRUE, .keep_last = FALSE)
+    
+    # Extract the top 1% of popular songs
+    top_songs <- spotify_df %>%
+      slice(1:ceiling(0.01 * nrow(spotify_df)))
+    
+    # Find the averages of all the numeric values in the df
+    averages <- top_songs %>%
+      summarize(across(where(is.numeric), mean, na.rm = TRUE))
+        
+    popularity_colors <- colorRampPalette(c("blue", "red"))(nrow(top_songs))
+    
+    # Create the scatter plot matrix with colored points
+    plot <- pairs(top_songs[c("popularity", "duration_ms", "tempo", "energy", "liveness")], 
+                  col = popularity_colors, 
+                  main = "What the Top 1% of Popular Songs Have in Common")
+    legend("topright", 
+           legend = c("Least Popular", "Most Popular"), 
+           col = c("blue", "red"), 
+           pch = 1, 
+           title = "Popularity")
+    
+    # Convert base R plot to plotly
+    ggplotly(plot)
+    
+  })
+  
+  
   output$chart_2 <- renderPlotly({
     # Get the selected genre
     selected_genre <- input$genre_select
