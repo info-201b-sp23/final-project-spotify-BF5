@@ -82,7 +82,7 @@ my_server <- function(input, output) {
     
     plot <- ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
       geom_col() +
-      labs(title = "Average Popularity of Genres", x = " ", y = "Popularity", fill = "Genre")
+      labs(title = "Average Popularity of Genres", x = "Genres", y = "Popularity", fill = "Genre")
     
     ggplotly(plot)
   })
