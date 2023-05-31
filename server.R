@@ -1,7 +1,7 @@
-library("dplyr")
-library("ggplot2")
-library("plotly")
-library("scales")
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(scales)
 
 spotify_df <- read.csv("dataset.csv")
 
@@ -65,13 +65,16 @@ my_server <- function(input, output) {
     avg_genre_popularity <- spotify_df %>%
       group_by(track_genre) %>%
       select(artists, track_name, track_genre, popularity) %>%
-      filter(popularity > 30) %>%
+      filter(popularity > 1) %>%
+      filter(track_genre == input$select_genre) %>%
       summarise(avg_popularity = mean(popularity)) %>%
       arrange(desc(avg_popularity))
     
-    ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
+    plot <- ggplot(avg_genre_popularity, aes(x = track_genre, y = avg_popularity, fill = track_genre)) +
       geom_col() +
-      labs(title = "Average Popularity of Genres", x = "Genre", y = "Popularity", fill = "Genre")
-    plotly::ggplotly(plot)
+      labs(title = "Average Popularity of Genres", x = " ", y = "Popularity", fill = "Genre")
+    
+    ggplotly(plot)
   })
+  
 }
