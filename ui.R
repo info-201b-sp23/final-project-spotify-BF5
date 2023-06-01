@@ -19,14 +19,24 @@ chart1 <- tabPanel("Chart 1",
                      sidebarPanel(
                        selectInput(
                          inputId = "Attribute",
-                         label = "Choose Attributes to Compare to Popularity",
+                         label = "Choose Attributes to Compare",
                          choices = unique(c("popularity", "duration_ms", "tempo", "energy", "liveness")),
                          multiple = TRUE
-                       )
+                       ), 
+                       
+                       p("", strong("Averages"), ""),
+                       
+                       p("Duration in ms:", (averages$duration_ms), ""),
+                           
+                       p("Tempo: ", (averages$tempo), ""),
+                           
+                       p("Energy: ", (averages$energy), ""),
+
+                       p("Liveness: ", (averages$liveness), "")
                      ),
                      mainPanel(
                        plotlyOutput("chart_1"),
-                       p("The purpose of including this chart was to be able to see a visual representation of each country's, as well as continent's, total amount of CO2 produced per year, with the looming threat of climate change that has been very relevant in recent years. Widgets in the chart include having the ability to change the country and compare multiple countries across each other, as well as changing the starting date for the graph, starting from 1930 all the way to 2021. Some patterns I saw emerge were, in each country's own graph, there seems to be a significant increase in the total amount of CO2 produced each year starting from the 1930s, with most countries seeming to have peaked during the 1980s. While some countries did increase as the years pass going into the 2000s, some countries have dipped in the total amount of CO2 produced within the year, which showcases how some countries are willing to reduce using materials that can cause CO2 emission in order to reduce the effects of climate change.")
+                       p("When first starting this chart, we used the whole dataset which was overwhelming to look at as a scatterplot and looked like a black square, so that meant there was no correlations between popularity and other attributes. So, we cut the dataset to the 1% of most popular songs. This is a matrix of the top 1% of the most popular songs and their attributes. The matrix shows the correlation between the popularity and other attributes (duration_ms, tempo, energy, and liveness) of the songs. Each point in the scatter plot represents a song, and the color of the point indicates if the point is above or below the median popularity. While this is a correlation chart, there are no correlations between popularity and the different attributes, but you can see a pattern emerge, the most popular songs do have things in common as they begin to cluster up as seen in the charts. To track popularity easily, green is the most popular things and black is less popular. Interesting enough, the averages of the most popular songs are close to where the most popular songs of the 1% are around.")
                      )
                    )
 )

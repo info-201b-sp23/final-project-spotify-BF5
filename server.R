@@ -39,8 +39,19 @@ my_server <- function(input, output) {
     attributes <- input$Attribute
     
     if (length(attributes) > 1) {
-      scatterplot_matrix <- ggpairs(top_songs, columns = attributes, 
-                                    lower = list(continuous = wrap("points", alpha = 0.7)))
+      # Compute the median of the "popularity" attribute for all data
+      popularity_median <- median(top_songs$popularity)
+      
+      # Create a new column indicating whether each point's "popularity" is greater than the median
+      top_songs$greater_than_median <- ifelse(top_songs$popularity > popularity_median, "Above Popularity Median", "Below Popularity Median")
+      
+      # Create the scatterplot matrix with color
+      scatterplot_matrix <- ggpairs(top_songs, columns = attributes,
+                                    lower = list(continuous = wrap("points", alpha = 0.7)),
+                                    mapping = aes(color = top_songs$greater_than_median)) +
+        scale_color_manual(values = c("lightgreen", "black"), guide = guide_legend(title = "Median")) +
+        labs(title = "What the Top 1% of Popular Songs Have in Common") 
+      
     } else {
       scatterplot_matrix <- NULL
     }
