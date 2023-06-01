@@ -27,13 +27,13 @@ chart1 <- tabPanel("Chart 1",
                        
                        p("", strong("Averages"), ""),
                        
-                       p("Duration in ms:", (averages$duration_ms), ""),
+                       p("Duration in ms: 212493.492628993"),
                            
-                       p("Tempo: ", (averages$tempo), ""),
+                       p("Tempo: 119.900325552826"),
                            
-                       p("Energy: ", (averages$energy), ""),
+                       p("Energy: 0.664915995085995"),
 
-                       p("Liveness: ", (averages$liveness), "")
+                       p("Liveness: 0.170374815724816")
                      ),
                      
                      mainPanel(
