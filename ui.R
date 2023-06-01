@@ -2,6 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(bslib)
+library(markdown)
 
 spotify_df <- read.csv("dataset.csv")
 
