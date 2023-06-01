@@ -33,8 +33,13 @@ chart1 <- tabPanel("Chart 1",
             
 
 chart2 <- tabPanel("Chart 2",
-                   selectInput(inputId = "genre_select", label = "Select Genres", choices = unique(spotify_df$track_genre)),
-                   plotlyOutput(outputId = "chart_2")
+                   sidebarLayout(
+                     sidebarPanel(
+                   selectInput(inputId = "genre_select", label = "Select Genres", choices = unique(spotify_df$track_genre))),
+                   mainPanel(
+                   plotlyOutput(outputId = "chart_2"),
+                   p("The chart reveals the information about the correlation between genres' songs danceability and popularity."))
+                   )
                    )
 
 chart3 <- tabPanel("Chart 3",
