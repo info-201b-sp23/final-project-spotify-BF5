@@ -5,9 +5,9 @@ account: mschwam
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9227232
-bundleId: 7290279
+bundleId: 7290348
 url: https://mschwam.shinyapps.io/final-project-spotify-BF5/
-when: 1685599812.4147
-lastSyncTime: 1685599812.41472
+when: 1685601012.05967
+lastSyncTime: 1685601012.05969
 asMultiple: FALSE
 asStatic: FALSE

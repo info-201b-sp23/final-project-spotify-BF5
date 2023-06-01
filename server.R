@@ -14,7 +14,7 @@ my_server <- function(input, output) {
   output$chart_1 <- renderPlotly({
     
     validate(
-      need(input$Attribute, "Please select at least 2 attribute")
+      need(input$Attribute, "Please select at least 2 attributes")
     )
     
     # Simplify to and organize data
