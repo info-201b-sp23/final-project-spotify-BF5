@@ -10,11 +10,11 @@ my_theme <- bs_theme(bg = "black",
                      primary = "lightgreen")
 my_theme <- my_theme %>% bs_add_rules(sass::sass_file("style.scss"))
 
-summary_tab <- tabPanel("Summary and Conclusion")
+summary_tab <- tabPanel("Summary and Conclusion", includeMarkdown("summary.md"))
 
 intro_tab <- tabPanel("Introduction", includeMarkdown("intro.md"))
 
-chart1 <- tabPanel("CHART 1",
+chart1 <- tabPanel("Chart 1",
                    sidebarLayout(
                      sidebarPanel(
                        selectInput(
@@ -32,12 +32,12 @@ chart1 <- tabPanel("CHART 1",
 )
             
 
-chart2 <- tabPanel("CHART2",
+chart2 <- tabPanel("Chart 2",
                    selectInput(inputId = "genre_select", label = "Select Genres", choices = unique(spotify_df$track_genre)),
                    plotlyOutput(outputId = "chart_2")
                    )
 
-chart3 <- tabPanel("CHART3",
+chart3 <- tabPanel("Chart 3",
                    sidebarLayout(
                      sidebarPanel(
                       selectInput(inputId = "select_genre", label = "Select Genres", choices = unique(spotify_df$track_genre), selected = "alternative", multiple = TRUE)),
